@@ -23,7 +23,7 @@ public class Toad extends AppCompatActivity {
             public void run() {
                 try {
                     while (!isInterrupted()) {
-                        Thread.sleep(200);
+                        Thread.sleep(runSpeed);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

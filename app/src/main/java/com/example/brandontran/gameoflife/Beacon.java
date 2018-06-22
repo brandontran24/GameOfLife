@@ -15,6 +15,7 @@ public class Beacon extends AppCompatActivity {
     int generation = 0;
     int cellCount = 0;
     int runSpeed = 500;
+    int[] viewTags = new int[36];
 
     private void startClock(){
         Thread t = new Thread() {
@@ -23,7 +24,7 @@ public class Beacon extends AppCompatActivity {
             public void run() {
                 try {
                     while (!isInterrupted()) {
-                        Thread.sleep(200);
+                        Thread.sleep(runSpeed);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -164,6 +165,10 @@ public class Beacon extends AppCompatActivity {
         views[34] = findViewById(R.id.cell_34);
         views[35] = findViewById(R.id.cell_35);
 
+        for(int r = 0; r < 36; r++){
+            viewTags[r] = r;
+        }
+
         for(int k = 0; k < 36; k++)
         {
             views[k].setVisibility(View.INVISIBLE);
@@ -177,6 +182,8 @@ public class Beacon extends AppCompatActivity {
                 newcells[i][j] = new Cell(i, j);
             }
         }
+
+
 
         cells[1][1].ressurrect();
         cells[1][2].ressurrect();

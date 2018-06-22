@@ -10,7 +10,7 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView toad;
+    TextView toad, beacon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,11 +18,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toad = findViewById(R.id.toad);
+        beacon = findViewById(R.id.beacon);
 
         toad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Toad.class);
+                startActivity(intent);
+            }
+        });
+
+        beacon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Beacon.class);
                 startActivity(intent);
             }
         });
