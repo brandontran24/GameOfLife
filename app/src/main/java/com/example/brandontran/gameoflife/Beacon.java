@@ -46,14 +46,10 @@ public class Beacon extends AppCompatActivity {
                                     }
                                 }
                                 else{
-                                    for(int i = 0; i < 36; i++){
-                                        views[i].setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                final int temp = i;
-                                                int x = i%6;
-                                            }
-                                        });
+                                    for(Imageview v : views) {
+                                        int i = Arrays.asList(views).indexOf(v);
+                                        int x  = i%6;
+                                        int y = (i-x)/6;
                                     }
                                 }
                             }
