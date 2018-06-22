@@ -37,7 +37,7 @@ public class Cell{
     }
 
     public Cell(int x, int y){
-        posx = posx;
+        posx = x;
         posy = y;
         alive = false;
     }

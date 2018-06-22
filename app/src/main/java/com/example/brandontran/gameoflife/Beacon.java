@@ -16,7 +16,7 @@ public class Beacon extends AppCompatActivity {
     Cell[][] newcells = new Cell[6][6];
     int generation = 0;
     int cellCount = 0;
-    int runSpeed = 500;
+    int runSpeed = 1500;
     int[] viewTags = new int[36];
     TextView play;
     TextView pause;
@@ -47,21 +47,20 @@ public class Beacon extends AppCompatActivity {
                                     }
                                 }
                                 else{
-                                    for(ImageView v : views) {
-                                        v.setOnClickListener(new View.OnClickListener() {
+                                    for(int i = 0; i < 36; i++) {
+                                        views[i].setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
                                                 int i = Arrays.asList(views).indexOf(v);
-                                                int x  = i%6;
-                                                int y = (i-x)/6;
-                                                if(!cells[x][y].isAlive()) {
+                                                int x = i % 6;
+                                                int y = (i - x) / 6;
+                                                if (!cells[x][y].isAlive()) {
                                                     cells[x][y].ressurrect();
-                                                    v.setVisibility(View.VISIBLE);
+                                                    v.setAlpha((float) 1.0);
                                                     System.out.println("resurrected cell (" + x + "," + y + ")");
-                                                }
-                                                else if(cells[x][y].isAlive()){
+                                                } else if (cells[x][y].isAlive()) {
                                                     cells[x][y].kill();
-                                                    v.setVisibility(View.INVISIBLE);
+                                                    v.setAlpha((float) 0);
                                                     System.out.println("killed cell (" + x + "," + y + ")");
                                                 }
                                             }
@@ -150,10 +149,10 @@ public class Beacon extends AppCompatActivity {
             for(int j = 0; j < 6; j++)
             {
                 if(newcells[i][j].isAlive()) {
-                    views[6 * j + i].setVisibility(View.VISIBLE);
+                    views[6 * j + i].setAlpha((float)1.0);
                 }
                 else
-                    views[6*j+i].setVisibility(View.INVISIBLE);
+                    views[6*j+i].setAlpha((float)0);
                 newcells[i][j] = new Cell(i, j);
             }
         }
@@ -208,14 +207,9 @@ public class Beacon extends AppCompatActivity {
         play = findViewById(R.id.play);
         pause = findViewById(R.id.pause);
 
-        for(int r = 0; r < 36; r++){
-            viewTags[r] = r;
-            views[r].setTag(viewTags[r]);
-        }
-
         for(int k = 0; k < 36; k++)
         {
-            views[k].setVisibility(View.INVISIBLE);
+            views[k].setAlpha((float)0);
         }
 
         for(int i = 0; i < 6; i++)
@@ -223,7 +217,6 @@ public class Beacon extends AppCompatActivity {
             for(int j = 0; j < 6; j++)
             {
                 cells[i][j] = new Cell(i,j);
-                cells[i][j].ressurrect();
                 newcells[i][j] = new Cell(i, j);
             }
         }
@@ -236,12 +229,12 @@ public class Beacon extends AppCompatActivity {
         cells[3][4].ressurrect();
         cells[4][4].ressurrect();
         cells[4][3].ressurrect();
-        views[6*1+1].setVisibility(View.VISIBLE);
-        views[6*2+1].setVisibility(View.VISIBLE);
-        views[6*1+2].setVisibility(View.VISIBLE);
-        views[6*4+3].setVisibility(View.VISIBLE);
-        views[6*4+4].setVisibility(View.VISIBLE);
-        views[6*3+4].setVisibility(View.VISIBLE);
+        views[6*1+1].setAlpha((float)1.0);
+        views[6*2+1].setAlpha((float)1.0);
+        views[6*1+2].setAlpha((float)1.0);
+        views[6*4+3].setAlpha((float)1.0);
+        views[6*4+4].setAlpha((float)1.0);
+        views[6*3+4].setAlpha((float)1.0);
 
         startClock();
 
