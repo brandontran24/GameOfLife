@@ -10,31 +10,22 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView toad, beacon;
+    TextView game, beacon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toad = findViewById(R.id.toad);
+        game = findViewById(R.id.game);
         beacon = findViewById(R.id.beacon);
 
-        toad.setOnClickListener(new View.OnClickListener() {
+        game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Toad.class);
+                Intent intent = new Intent(MainActivity.this, Game.class);
                 startActivity(intent);
             }
         });
-
-        beacon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Beacon.class);
-                startActivity(intent);
-            }
-        });
-
     }
 }

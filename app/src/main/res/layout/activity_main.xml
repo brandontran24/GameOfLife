@@ -8,26 +8,30 @@
 
 
     <TextView
-        android:id="@+id/toad"
+        android:id="@+id/game"
         android:layout_width="102dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="201dp"
-        android:layout_marginEnd="129dp"
-        android:text="Toad"
-        android:textSize="36sp" />
+        android:layout_marginBottom="13dp"
+        android:text="play"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
+        android:typeface="serif"
+        app:fontFamily="sans-serif-smallcaps" />
 
     <TextView
-        android:id="@+id/beacon"
-        android:layout_width="157dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="117dp"
-        android:layout_marginEnd="92dp"
-        android:text="Beacon"
-        android:textSize="36sp" />
+        android:id="@+id/title"
+        android:layout_width="302dp"
+        android:layout_height="96dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:text="Conway's
+        Game of Life"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
+        android:typeface="serif" />
 
 
 </RelativeLayout>

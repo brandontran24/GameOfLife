@@ -2,6 +2,7 @@ package com.example.brandontran.gameoflife;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,17 +10,19 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Beacon extends AppCompatActivity {
+public class Game extends AppCompatActivity {
 
     ImageView[] views = new ImageView[36];
     Cell[][] cells = new Cell[6][6];
     Cell[][] newcells = new Cell[6][6];
     int generation = 0;
     int cellCount = 0;
-    int runSpeed = 1500;
+    int runSpeed = 250;
     int[] viewTags = new int[36];
     TextView play;
-    TextView pause;
+    TextView toad;
+    TextView beacon;
+    TextView generationText;
     boolean input_done;
 
     private void startClock(){
@@ -36,7 +39,7 @@ public class Beacon extends AppCompatActivity {
                                 if(input_done) {
                                     update();
                                     generation++;
-
+                                    generationText.setText("   " + Integer.toString(generation));
                                     cellCount = 0;
                                     for (int i = 0; i < 6; i++) {
                                         for (int j = 0; j < 6; j++) {
@@ -48,21 +51,44 @@ public class Beacon extends AppCompatActivity {
                                 }
                                 else{
                                     for(int i = 0; i < 36; i++) {
-                                        views[i].setOnClickListener(new View.OnClickListener() {
+                                        views[i].setOnTouchListener(new View.OnTouchListener() {
                                             @Override
-                                            public void onClick(View v) {
-                                                int i = Arrays.asList(views).indexOf(v);
-                                                int x = i % 6;
-                                                int y = (i - x) / 6;
-                                                if (!cells[x][y].isAlive()) {
-                                                    cells[x][y].ressurrect();
-                                                    v.setAlpha((float) 1.0);
-                                                    System.out.println("resurrected cell (" + x + "," + y + ")");
-                                                } else if (cells[x][y].isAlive()) {
-                                                    cells[x][y].kill();
-                                                    v.setAlpha((float) 0);
-                                                    System.out.println("killed cell (" + x + "," + y + ")");
+                                            public boolean onTouch(View v, MotionEvent event) {
+                                                switch (event.getAction()) {
+                                                    case MotionEvent.ACTION_DOWN:
+                                                        int i = Arrays.asList(views).indexOf(v);
+                                                        int x = i % 6;
+                                                        int y = (i - x) / 6;
+                                                        if (!cells[x][y].isAlive()) {
+                                                            cells[x][y].ressurrect();
+                                                            v.setAlpha((float) 1.0);
+                                                            System.out.println("resurrected cell (" + x + "," + y + ")");
+                                                        } else if (cells[x][y].isAlive()) {
+                                                            cells[x][y].kill();
+                                                            v.setAlpha((float) 0);
+                                                            System.out.println("killed cell (" + x + "," + y + ")");
+                                                        }
+                                                        break;
+                                                    case MotionEvent.ACTION_HOVER_ENTER:
+                                                        i = Arrays.asList(views).indexOf(v);
+                                                        x = i % 6;
+                                                        y = (i - x) / 6;
+                                                        if (!cells[x][y].isAlive()) {
+                                                            cells[x][y].ressurrect();
+                                                            v.setAlpha((float) 1.0);
+                                                            System.out.println("resurrected cell (" + x + "," + y + ")");
+                                                        } else if (cells[x][y].isAlive()) {
+                                                            cells[x][y].kill();
+                                                            v.setAlpha((float) 0);
+                                                            System.out.println("killed cell (" + x + "," + y + ")");
+                                                        }
+                                                        break;
+                                                    case MotionEvent.ACTION_UP:
+                                                        break;
+                                                    default:
+                                                        break;
                                                 }
+                                                return true;
                                             }
                                         });
                                     }
@@ -81,16 +107,77 @@ public class Beacon extends AppCompatActivity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input_done = true;
+                if(input_done){
+                    play.setText("START");
+                }
+                else{
+                    play.setText("STOP");
+                }
+                input_done = !input_done;
+
             }
         });
 
-        pause.setOnClickListener(new View.OnClickListener() {
+        beacon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input_done = false;
+                setBeacon();
             }
         });
+
+        toad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setToad();
+            }
+        });
+    }
+
+    public void setBeacon()
+    {
+        for(int i = 0; i < 6; i++)
+        {
+            for(int j = 0; j < 6; j++)
+            {
+                cells[i][j].kill();
+                views[6*j+i].setAlpha((float)0);
+            }
+        }
+        cells[1][1].ressurrect();
+        cells[1][2].ressurrect();
+        cells[2][1].ressurrect();
+        cells[3][4].ressurrect();
+        cells[4][4].ressurrect();
+        cells[4][3].ressurrect();
+        views[6 * 1 + 1].setAlpha((float) 1.0);
+        views[6 * 2 + 1].setAlpha((float) 1.0);
+        views[6 * 1 + 2].setAlpha((float) 1.0);
+        views[6 * 4 + 3].setAlpha((float) 1.0);
+        views[6 * 4 + 4].setAlpha((float) 1.0);
+        views[6 * 3 + 4].setAlpha((float) 1.0);
+    }
+
+    public void setToad() {
+        for(int i = 0; i < 6; i++)
+        {
+            for(int j = 0; j < 6; j++)
+            {
+                cells[i][j].kill();
+                views[6*j+i].setAlpha((float)0);
+            }
+        }
+        cells[2][2].ressurrect();
+        cells[2][3].ressurrect();
+        cells[2][4].ressurrect();
+        cells[3][1].ressurrect();
+        cells[3][2].ressurrect();
+        cells[3][3].ressurrect();
+        views[6 * 2 + 2].setAlpha((float) 1.0);
+        views[6 * 3 + 2].setAlpha((float) 1.0);
+        views[6 * 4 + 2].setAlpha((float) 1.0);
+        views[6 * 1 + 3].setAlpha((float) 1.0);
+        views[6 * 2 + 3].setAlpha((float) 1.0);
+        views[6 * 3 + 3].setAlpha((float) 1.0);
     }
 
     public void update() {
@@ -151,8 +238,9 @@ public class Beacon extends AppCompatActivity {
                 if(newcells[i][j].isAlive()) {
                     views[6 * j + i].setAlpha((float)1.0);
                 }
-                else
+                else{
                     views[6*j+i].setAlpha((float)0);
+                }
                 newcells[i][j] = new Cell(i, j);
             }
         }
@@ -164,9 +252,13 @@ public class Beacon extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_beacon);
+        setContentView(R.layout.activity_game);
 
         input_done = false;
+        beacon = findViewById(R.id.beacon);
+        toad = findViewById(R.id.toad);
+        play = findViewById(R.id.play);
+        generationText = findViewById(R.id.generation);
 
         views[0] = findViewById(R.id.cell_0);
         views[1] = findViewById(R.id.cell_1);
@@ -204,8 +296,6 @@ public class Beacon extends AppCompatActivity {
         views[33] = findViewById(R.id.cell_33);
         views[34] = findViewById(R.id.cell_34);
         views[35] = findViewById(R.id.cell_35);
-        play = findViewById(R.id.play);
-        pause = findViewById(R.id.pause);
 
         for(int k = 0; k < 36; k++)
         {
@@ -223,18 +313,6 @@ public class Beacon extends AppCompatActivity {
 
         clickListen();
 
-        cells[1][1].ressurrect();
-        cells[1][2].ressurrect();
-        cells[2][1].ressurrect();
-        cells[3][4].ressurrect();
-        cells[4][4].ressurrect();
-        cells[4][3].ressurrect();
-        views[6*1+1].setAlpha((float)1.0);
-        views[6*2+1].setAlpha((float)1.0);
-        views[6*1+2].setAlpha((float)1.0);
-        views[6*4+3].setAlpha((float)1.0);
-        views[6*4+4].setAlpha((float)1.0);
-        views[6*3+4].setAlpha((float)1.0);
 
         startClock();
 
