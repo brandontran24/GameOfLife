@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,9 @@ public class Beacon extends AppCompatActivity {
     int cellCount = 0;
     int runSpeed = 500;
     int[] viewTags = new int[36];
+    TextView play;
+    TextView pause;
+    boolean input_done;
 
     private void startClock(){
         Thread t = new Thread() {
@@ -28,16 +32,28 @@ public class Beacon extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                update();
-                                generation++;
+                                if(input_done) {
+                                    update();
+                                    generation++;
 
-                                cellCount = 0;
-                                for(int i = 0; i < 6; i++){
-                                    for(int j = 0; j < 6; j++)
-                                    {
-                                        if(cells[i][j].isAlive()){
-                                            cellCount++;
+                                    cellCount = 0;
+                                    for (int i = 0; i < 6; i++) {
+                                        for (int j = 0; j < 6; j++) {
+                                            if (cells[i][j].isAlive()) {
+                                                cellCount++;
+                                            }
                                         }
+                                    }
+                                }
+                                else{
+                                    for(int i = 0; i < 36; i++){
+                                        views[i].setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                final int temp = i;
+                                                int x = i%6;
+                                            }
+                                        });
                                     }
                                 }
                             }
@@ -164,9 +180,26 @@ public class Beacon extends AppCompatActivity {
         views[33] = findViewById(R.id.cell_33);
         views[34] = findViewById(R.id.cell_34);
         views[35] = findViewById(R.id.cell_35);
+        play = findViewById(R.id.play);
+        pause = findViewById(R.id.pause);
+
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                input_done = true;
+            }
+        });
+
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                input_done = false;
+            }
+        });
 
         for(int r = 0; r < 36; r++){
             viewTags[r] = r;
+            views[r].setTag(viewTags[r]);
         }
 
         for(int k = 0; k < 36; k++)
@@ -182,8 +215,6 @@ public class Beacon extends AppCompatActivity {
                 newcells[i][j] = new Cell(i, j);
             }
         }
-
-
 
         cells[1][1].ressurrect();
         cells[1][2].ressurrect();
