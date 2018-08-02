@@ -2,8 +2,8 @@
 An Android implementation of John Conway's 1970 cellular automaton. Part of <a href="https://seal.ece.ucsb.edu/">UCSB SEAL</a>'s high school outreach program.
 
 ## Contributors
-Program Manager, Teacher: Brandon Tran
-Student: 
+Program Manager, Teacher: Brandon Tran  
+Student: Nathan Getachew  
 Student: Andrew Xie
 
 ## Rules
