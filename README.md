@@ -1,4 +1,5 @@
 # Conway's Game of Life
+<img src="https://github.com/brandontran24/GameOfLife/blob/master/Menu.png" width="250">
 An Android implementation of John Conway's 1970 cellular automaton. Part of <a href="https://seal.ece.ucsb.edu/">UCSB SEAL</a>'s high school outreach program.
 
 # Rules
