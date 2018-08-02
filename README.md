@@ -1,6 +1,11 @@
 # Conway's Game of Life
 An Android implementation of John Conway's 1970 cellular automaton. Part of <a href="https://seal.ece.ucsb.edu/">UCSB SEAL</a>'s high school outreach program.
 
+## Contributors
+Program Manager, Teacher: Brandon Tran
+Student: 
+Student: Andrew Xie
+
 ## Rules
 In the <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of Life</a>, every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, or generation, the following transitions occur.
 1. Any live cell with fewer than two live neighbors dies, as if by under population.
